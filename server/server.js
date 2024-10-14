@@ -10,6 +10,10 @@ app.use(cors(corsOptions));
 app.use(express.json());
 const User = require('./models/Users');
 
+const jwt = require('jsonwebtoken');
+const secretKey = 'mySecretKey'; // Clé secrète pour signer le JWT (à garder confidentielle)
+
+
 mongoose.connect('mongodb+srv://user:FNB2Q5ryrnvtw80F@cluster0.venoj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
     .then(() => console.log('Connected to MongoDB'))
     .catch(() => console.log('MongoDB connection failed'));
@@ -30,7 +34,10 @@ app.post('/api/sign-in', async (req, res) => {
             return res.status(401).json({ message: 'Email ou mot de passe incorrect' });
         }
 
-        res.json({ message: 'Connexion réussie' });
+        // Générer un JWT valide pour 30 jours
+        const token = jwt.sign({ userId: user._id }, secretKey, { expiresIn: '30d' });
+
+        res.json({ token });
 
     } catch (error) {
         console.error('Erreur lors de la connexion:', error);

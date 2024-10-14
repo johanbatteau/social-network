@@ -1,0 +1,29 @@
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+main form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 50%;
+}
+
+main form input, main form button {
+  padding: .5rem 1rem;
+}
+
+span {
+  font-size: .8rem;
+  text-align: center;
+}
+
+span a{
+    color: #646cff;
+    font-weight: 500;
+    text-decoration: inherit;
+}
